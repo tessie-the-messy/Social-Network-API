@@ -16,11 +16,15 @@ const userSchema = new Schema(
             // must match valid email address
 
         },
-        thoughts: [thoughtsSchema],
-        friends: [userSchema]
-        // Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
+        thoughts: [{type: Schema.Types.ObjectId, ref: 'Thought'}],
+        friends: [{type: Schema.Types.ObjectId, ref: 'User'}]
+        
     }
 )
+
+userSchema.virtual('friendCount').get(function() {
+    return this.friends.length
+})
 
 const User = model('user', userSchema)
 
