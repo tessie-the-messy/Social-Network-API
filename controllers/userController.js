@@ -12,23 +12,23 @@ const userController = {
       .catch((err) => res.json(err));
   },
   getUser(req, res) {
-    User.findOne({ id: req.params.id })
+    User.findOne({ _id: req.params.id })
       .then((data) => res.json(data))
       .catch((err) => res.json(err));
   },
   deleteUser(req, res) {
-    User.findOneAndRemove({ id: req.params.id })
+    User.findOneAndRemove({ _id: req.params.id })
       .then((data) => res.json(data))
       .catch((err) => res.json(err));
   },
   updateUser(req, res) {
-    User.findOneAndUpdate({ id: req.params.id }, { $set: req.body })
+    User.findOneAndUpdate({ _id: req.params.id }, { $set: req.body })
       .then((data) => res.json(data))
       .catch((err) => res.json(err));
   },
   postFriend(req, res) {
     User.findOneAndUpdate(
-      { id: req.params.id },
+      { _id: req.params.id },
       { $addToSet: { friends: req.params.id } },
       { new: true }
     )
@@ -37,7 +37,7 @@ const userController = {
   },
   deleteFriend(req, res) {
     User.findOneAndUpdate(
-      { id: req.params.id },
+      { _id: req.params.id },
       { $pull: { friends: req.params.id } },
       { new: true }
     )
